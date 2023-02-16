@@ -19,15 +19,15 @@
   <meta name="theme-color" content="rgb(255,255,255)" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>Tags &middot; Zhou</title>
-    <meta name="title" content="Tags &middot; Zhou" />
+  <title>Nft Tracing &middot; Zhou</title>
+    <meta name="title" content="Nft Tracing &middot; Zhou" />
   
   <meta name="description" content="A personal github page" />
   
   
   
-  <link rel="canonical" href="/tags/" />
-  <link rel="alternate" type="application/rss+xml" href="/tags/index.xml" title="Zhou" />
+  <link rel="canonical" href="/notes/nft-tracing/" />
+  <link rel="alternate" type="application/rss+xml" href="/notes/nft-tracing/index.xml" title="Zhou" />
   
   
   
@@ -74,13 +74,13 @@
   
   
   
-  <meta property="og:title" content="Tags" />
+  <meta property="og:title" content="Nft Tracing" />
 <meta property="og:description" content="A personal github page" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="/tags/" /><meta property="og:site_name" content="Zhou" />
+<meta property="og:url" content="/notes/nft-tracing/" /><meta property="og:site_name" content="Zhou" />
 
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Tags"/>
+<meta name="twitter:title" content="Nft Tracing"/>
 <meta name="twitter:description" content="A personal github page"/>
 
   
@@ -265,10 +265,13 @@
     <div class="relative flex flex-col grow">
       <main id="main-content" class="grow">
         
+  
   <header>
     
       <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
   
+  
+    
   
     
   
@@ -281,11 +284,20 @@
   </li>
 
   
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/notes/"
+      >Notes</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
   <li class="inline hidden">
     <a
       class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
-      href="/tags/"
-      >Tags</a
+      href="/notes/nft-tracing/"
+      >Nft Tracing</a
     ><span class="px-1 text-primary-500">/</span>
   </li>
 
@@ -293,29 +305,186 @@
 
 
     
-    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">Tags</h1>
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">Nft Tracing</h1>
   </header>
-  
-  <section class="flex flex-wrap -mx-2 overflow-hidden">
+  <section
+    class="mt-12 prose flex max-w-full flex-col dark:prose-invert lg:flex-row"
+  >
     
-      <article class="w-full px-2 my-3 overflow-hidden sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
-        <h2 class="flex items-center">
-          <a
-            class="text-xl font-medium decoration-primary-500 hover:underline hover:underline-offset-2"
-            href="/tags/network/"
-            >network</a
-          >
-          
-            <span class="px-2 text-base text-primary-500">&middot;</span>
-            <span class="text-base text-neutral-400">
-              1
-            </span>
-          
-        </h2>
-      </article>
-    
-  </section>
+      <div class="order-first px-0 lg:order-last lg:max-w-xs ltr:lg:pl-8 rtl:lg:pr-8">
+        <div class="toc ltr:pl-5 rtl:pr-5 lg:sticky lg:top-10">
+          <details open class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
+  >
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#headline-1">Enabling nftrace</a>
+</li>
+<li><a href="#headline-2">Use a chain to enable tracing</a>
+</li>
+<li><a href="#headline-3">monitoring tracing events</a>
+</li>
+<li><a href="#headline-4">Complete example</a>
+</li>
+</ul>
+</nav>
+  </div>
+</details>
 
+        </div>
+      </div>
+    
+    <div class="min-w-0 min-h-0 max-w-prose grow">
+      
+<p>
+Since nftables v0.6 and Linux kernel 4.6, ruleset debug/tracing is supported.</p>
+<p>
+This is an equivalent of the old iptables method <code class="verbatim">-J TRACE</code>, but with some great improvements.</p>
+<p>
+The steps to enable debug/tracing is the following:</p>
+<ul>
+<li>give support in your ruleset for it (set nftrace in any of your rules)</li>
+<li>monitor the trace events from the nft tool</li>
+</ul>
+<div id="outline-container-headline-1" class="outline-3">
+<h3 id="headline-1">
+Enabling nftrace
+</h3>
+<div id="outline-text-headline-1" class="outline-text-3">
+<p>
+To enable nftrace in a packet, use a rule with this statement:</p>
+<div class="src src-text">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">meta nftrace set 1</span></span></code></pre></div>
+</div>
+<p>After all, nftrace is part of the metainformation of a packet.</p>
+<p>
+Of course, you may only enable nftrace for a given matching packet. In the example below, we only enable nftrace for tcp packets:</p>
+<div class="src src-text">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">ip protocol tcp meta nftrace set 1</span></span></code></pre></div>
+</div>
+<p>Adjusting nftrace to only your subset of desired packets is key to properly debug the ruleset,
+otherwise you may get a lot of debug/tracing information which may be overwhelming.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-3">
+<h3 id="headline-2">
+Use a chain to enable tracing
+</h3>
+<div id="outline-text-headline-2" class="outline-text-3">
+<p>The recommended way to enable tracing is to add a chain for this purpose.</p>
+<p>
+Register a <code class="verbatim">trace_chain</code> to enable tracing. If you already have a prerouting chain,
+then make sure your <code class="verbatim">trace_chain</code> priority comes before your existing prerouting chain.</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  nft add chain filter trace_chain <span class="o">{</span> <span class="nb">type</span> filter hook prerouting priority -301<span class="se">\;</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  nft add rule filter trace_chain meta nftrace <span class="nb">set</span> <span class="m">1</span></span></span></code></pre></div>
+</div>
+<p>This example assumes you have an existing raw prerouting chain (at priority -300),
+hence, this is registering a trace chain right before this chain (at priority -301).</p>
+<p>
+Once you are done with rule tracing, you can just delete this chain to disable it:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  nft delete chain filter trace_chain</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-3">
+<h3 id="headline-3">
+monitoring tracing events
+</h3>
+<div id="outline-text-headline-3" class="outline-text-3">
+<p>In nftables, getting the debug/tracing events is a bit different from the iptables world.
+Now, we have an event-based monitor for the kernel to notify the nft tool.</p>
+<p>
+The basic syntax is:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  nft monitor trace</span></span></code></pre></div>
+</div>
+<p>
+Each trace event is assigned an &#39;id&#39; for you to easily follow different packets in the same trace session.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Complete example
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>Here is complete example of this debug/tracing mechanism in work.</p>
+<p>
+Assuming you have this ruleset:</p>
+<div class="src src-text">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">table ip filter {
+</span></span><span class="line"><span class="cl">        chain input {
+</span></span><span class="line"><span class="cl">                type filter hook input priority filter; policy drop;
+</span></span><span class="line"><span class="cl">                ct state established,related counter packets 2 bytes 292 accept
+</span></span><span class="line"><span class="cl">                ct state new tcp dport 22 counter packets 0 bytes 0 accept
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div>
+</div>
+<p>Load this ruleset:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  nft -f ruleset.nft</span></span></code></pre></div>
+</div>
+<p>Then, add a chain that enables tracing:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  nft add chain ip filter trace_chain <span class="o">{</span> <span class="nb">type</span> filter hook prerouting priority -1<span class="se">\;</span> <span class="o">}</span></span></span></code></pre></div>
+</div>
+<p>This registers the trace_chain before the existing input chain.</p>
+<p>
+And the rule to enable the tracing:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  nft add rule ip filter trace_chain meta nftrace <span class="nb">set</span> <span class="m">1</span></span></span></code></pre></div>
+</div>
+<p>Simple tracing test, by pinging one host:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  ping -c <span class="m">1</span> 8.8.8.8</span></span></code></pre></div>
+</div>
+<p>You run on a different terminal:</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">nft monitor trace
+</span></span><span class="line"><span class="cl"><span class="c1"># trace id a95ea7ef ip filter trace_chain packet: iif &#34;enp0s25&#34; ether saddr 00:0d:b9:4a:49:3d ether daddr 3c:97:0e:39:aa:20 ip saddr 8.8.8.8 ip daddr 192.168.2.118 ip dscp cs0 ip ecn not-ect ip ttl 115 ip id 0 ip length 84 icmp type echo-reply icmp code net-unreachable icmp id 9253 icmp sequence 1 @th,64,96 24106705117628271805883024640 </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># trace id a95ea7ef ip filter trace_chain rule meta nftrace set 1 (verdict continue)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># trace id a95ea7ef ip filter trace_chain verdict continue </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># trace id a95ea7ef ip filter trace_chain policy accept </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># trace id a95ea7ef ip filter input packet: iif &#34;enp0s25&#34; ether saddr 00:0d:b9:4a:49:3d ether daddr 3c:97:0e:39:aa:20 ip saddr 8.8.8.8 ip daddr 192.168.2.118 ip dscp cs0 ip ecn not-ect ip ttl 115 ip id 0 ip length 84 icmp type echo-reply icmp code net-unreachable icmp id 9253 icmp sequence 1 @th,64,96 24106705117628271805883024640 </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># trace id a95ea7ef ip filter input rule ct state established,related counter packets 168 bytes 53513 accept (verdict accept)</span></span></span></code></pre></div>
+</div>
+<p>The trace id uniquely identifies a packet. The trace describes the packet entering the chain initially.</p>
+<div class="src src-text">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">trace id a95ea7ef ip filter trace_chain packet: iif &#34;enp0s25&#34; ether saddr 00:0d:b9:4a:49:3d ether daddr 3c:97:0e:39:aa:20 ip saddr 8.8.8.8 ip daddr 192.168.2.118 ip dscp cs0 ip ecn not-ect ip ttl 115 ip id 0 ip length 84 icmp type echo-reply icmp code net-unreachable icmp id 9253 icmp sequence 1 @th,64,96 24106705117628271805883024640</span></span></code></pre></div>
+</div>
+</div>
+</div>
+
+    </div>
+  </section>
+  
+    <section class="mt-10 prose dark:prose-invert">
+      <p class="py-8 border-t">
+        <em>There's no articles to list here yet.</em>
+      </p>
+    </section>
+  
+
+        
+          <div
+            class="pointer-events-none absolute top-[100vh] bottom-0 w-12 ltr:right-0 rtl:left-0"
+          >
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
         
       </main><footer class="py-10 print:hidden">
   
