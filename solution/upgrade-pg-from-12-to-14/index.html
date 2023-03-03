@@ -19,15 +19,15 @@
   <meta name="theme-color" content="rgb(255,255,255)" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>Solution &middot; Zhou</title>
-    <meta name="title" content="Solution &middot; Zhou" />
+  <title>Upgrade PostgreSQL From 12 to 14 &middot; Zhou</title>
+    <meta name="title" content="Upgrade PostgreSQL From 12 to 14 &middot; Zhou" />
   
-  <meta name="description" content="What i&#39;ve been practcing of design and deployment in dev/test/prod environment" />
+  <meta name="description" content="A personal github page" />
   
   
   
-  <link rel="canonical" href="/solution/" />
-  <link rel="alternate" type="application/rss+xml" href="/solution/index.xml" title="Zhou" />
+  <link rel="canonical" href="/solution/upgrade-pg-from-12-to-14/" />
+  <link rel="alternate" type="application/rss+xml" href="/solution/upgrade-pg-from-12-to-14/index.xml" title="Zhou" />
   
   
   
@@ -74,14 +74,14 @@
   
   
   
-  <meta property="og:title" content="Solution" />
-<meta property="og:description" content="What i&#39;ve been practcing of design and deployment in dev/test/prod environment" />
+  <meta property="og:title" content="Upgrade PostgreSQL From 12 to 14" />
+<meta property="og:description" content="A personal github page" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="/solution/" /><meta property="og:site_name" content="Zhou" />
+<meta property="og:url" content="/solution/upgrade-pg-from-12-to-14/" /><meta property="og:site_name" content="Zhou" />
 
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Solution"/>
-<meta name="twitter:description" content="What i&#39;ve been practcing of design and deployment in dev/test/prod environment"/>
+<meta name="twitter:title" content="Upgrade PostgreSQL From 12 to 14"/>
+<meta name="twitter:description" content="A personal github page"/>
 
   
   
@@ -273,6 +273,8 @@
   
     
   
+    
+  
   <li class="inline hidden">
     <a
       class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
@@ -282,7 +284,7 @@
   </li>
 
   
-  <li class="inline hidden">
+  <li class="inline ">
     <a
       class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
       href="/solution/"
@@ -290,340 +292,225 @@
     ><span class="px-1 text-primary-500">/</span>
   </li>
 
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/solution/upgrade-pg-from-12-to-14/"
+      >Upgrade PostgreSQL From 12 to 14</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
 </ol>
 
 
     
-    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">Solution</h1>
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">Upgrade PostgreSQL From 12 to 14</h1>
   </header>
   <section
-    class="mt-0 prose flex max-w-full flex-col dark:prose-invert lg:flex-row"
+    class="mt-12 prose flex max-w-full flex-col dark:prose-invert lg:flex-row"
   >
     
-    <div class="min-w-0 min-h-0 max-w-prose grow">
-      <div class="lead !mb-9 text-xl">
-  What i&rsquo;ve been practcing of design and deployment in dev/test/prod environment.
-</div>
+      <div class="order-first px-0 lg:order-last lg:max-w-xs ltr:lg:pl-8 rtl:lg:pr-8">
+        <div class="toc ltr:pl-5 rtl:pr-5 lg:sticky lg:top-10">
+          <details open class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
+  >
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#headline-1">In hosted system</a>
+</li>
+<li><a href="#headline-2">Fallback</a>
+</li>
+<li><a href="#headline-3">In docker container</a>
+<ul>
+<li><a href="#headline-4">Backup existing volume or directory</a>
+</li>
+<li><a href="#headline-5">Copy postgresql binary files and shared files</a>
+</li>
+<li><a href="#headline-6">Start a container with postgresql 14 and 12</a>
+</li>
+<li><a href="#headline-7">Upgrade existing database in postgresql 14 container</a>
+</li>
+<li><a href="#headline-8">Mount upgraded database volume</a>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+  </div>
+</details>
 
-<hr>
+        </div>
+      </div>
+    
+    <div class="min-w-0 min-h-0 max-w-prose grow">
+      
+<p>
+<a href="id:51c4004f-30f5-4ea3-849b-db0c942a4ee9">PostgreSQL</a> 12 data files is not compatible with version 14, existing database
+requires to upgrade.</p>
+<div id="outline-container-headline-1" class="outline-3">
+<h3 id="headline-1">
+In hosted system
+</h3>
+<div id="outline-text-headline-1" class="outline-text-3">
+<p>In a hosted system, we can install both version 12 and 14, and execute <em>pg_upgrade</em> on the system</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-3">
+<h3 id="headline-2">
+Fallback
+</h3>
+<div id="outline-text-headline-2" class="outline-text-3">
+<p>We can always use <em>pg_dump</em> and then <em>psql</em> to import dumped SQL file, dispite losing additional
+information about existing database.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-3">
+<h3 id="headline-3">
+In docker container
+</h3>
+<div id="outline-text-headline-3" class="outline-text-3">
+<p>It&#39;s more complicated when working in docker container environment.</p>
+<div id="outline-container-headline-4" class="outline-4">
+<h4 id="headline-4">
+Backup existing volume or directory
+</h4>
+<div id="outline-text-headline-4" class="outline-text-4">
+<p>Backup existing directory when using bind mount.</p>
+<p>
+For example, when bind mount <code class="verbatim">/home/pgdata</code> to postgresql container like
+<code class="verbatim">-v /home/pgdata:/var/lib/postgresql/data</code>, we can simple <code class="verbatim">cp</code> that directory to a backup.</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  cp -a /home/pgdata /home/pgdata_12_backup</span></span></code></pre></div>
+</div>
+<p>
+Backup existing data volume when using volumes.</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  docker run --rm -ti --name backup_volume -v /home/pgdata_12_backup:/pgbackup -v pg_volume:/pgdata ubuntu:22.04</span></span></code></pre></div>
+</div>
+<p>and copy volume content into bind moun directory in the container.</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  cp -a /pgdata/* /pgbackup</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-4">
+<h4 id="headline-5">
+Copy postgresql binary files and shared files
+</h4>
+<div id="outline-text-headline-5" class="outline-text-4">
+<p>Run a PostgreSQL 12 container, and poplulate version 12 binary files and share files into volumes.</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  docker volume create pg12_share
+</span></span><span class="line"><span class="cl">  docker volume create pg12_bin
+</span></span><span class="line"><span class="cl">  docker run --rm -ti --name pg12 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>         -e <span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span>s3cr3t <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>         -v pg12_share:/usr/share/postgresql/12 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>         -v pg12_bin:/usr/lib/postgresql/12 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>         postgre:12</span></span></code></pre></div>
+</div>
+<p>When PostgreSQL 12 fully started, stop the running container.</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  docker stop pg12</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-4">
+<h4 id="headline-6">
+Start a container with postgresql 14 and 12
+</h4>
+<div id="outline-text-headline-6" class="outline-text-4">
+<p>We can start a PostgreSQL 14 container and then mount 12 files into container to get
+an environment which has version 12 and version 14.</p>
+<p>
+Prepare a new volume for upgraded database files.</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  docker volume create pgdata_14</span></span></code></pre></div>
+</div>
+<p>
+Start a PostgreSQL 14 container with volume mount, and backup bind mount.</p>
+<p>
+NOTE: mount new data volume for upgraded to other location than postgresql data directory (<code class="verbatim">/var/lib/postgresql/data</code>).</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  docker run --rm -ti --name pg14 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>         -v /home/pgdata_12_backup:/var/lib/postgresql/data12 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>         -v pg12_share:/usr/share/postgresql/12 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>         -v pg12_bin:/usr/lib/postgresql/12 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>         -v pgdata14:/var/lib/postgresql/data14 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>         -e <span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span>secret <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>         postgresql:14</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-4">
+<h4 id="headline-7">
+Upgrade existing database in postgresql 14 container
+</h4>
+<div id="outline-text-headline-7" class="outline-text-4">
+<p>Enter PostgreSQL 14 container to perform upgrading.</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  docker <span class="nb">exec</span> -ti pg14 bash</span></span></code></pre></div>
+</div>
+<p>
+Use <code class="verbatim">--username</code> when existing database&#39;s super user is not <code class="verbatim">postgres</code>. We use <code class="verbatim">sa</code> as an example here.</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  chown -R postgres:postgres /var/lib/postgresql/data12
+</span></span><span class="line"><span class="cl">  chown -R postgres:postgres /var/lib/postgresql/data14
+</span></span><span class="line"><span class="cl">  su postgres
+</span></span><span class="line"><span class="cl">  <span class="nb">cd</span> /var/lib/postgresql <span class="c1"># change directory to postgres&#39; home directory /var/lib/postgresql</span>
+</span></span><span class="line"><span class="cl">  initdb -D <span class="nv">$PWD</span>/data14 --username sa
+</span></span><span class="line"><span class="cl">  pg_upgrade -d <span class="nv">$PWD</span>/data12 -D <span class="nv">$PWD</span>/data14 --username sa -b /usr/lib/postgresql/12/bin</span></span></code></pre></div>
+</div>
+<p>When upgrade finished, we get upgraded database in volume <code class="verbatim">pgdata_14</code>, and then stop running container.</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  docker stop pg14</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-4">
+<h4 id="headline-8">
+Mount upgraded database volume
+</h4>
+<div id="outline-text-headline-8" class="outline-text-4">
+<p>and we can volume mount to a new PostgreSQL 14 container as main database files.</p>
+<div class="src src-text">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">  docker run --rm -ti --name pg14 -v pgdata_14:/var/lib/postgresql/14/data postgres:14</span></span></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
     </div>
   </section>
   
-    <section>
-      
-        
-          <article class="flex flex-row mt-6 max-w-prose">
-  <div>
-    <h3 class="flex items-center text-xl font-semibold">
-      
-        <a
-          class="text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/solution/upgrade-pg-from-12-to-14/"
-          >Upgrade PostgreSQL From 12 to 14</a
-        >
-      
-      
-      
-    </h3>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
-      
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <span title="Reading time">2 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-  
-
-
-    </div>
-    
-      <div class="py-1 prose dark:prose-invert">
-        PostgreSQL 12 data files is not compatible with version 14, existing database requires to upgrade.
-      </div>
-    
-  </div>
-</article>
-
-        
-          <article class="flex flex-row mt-6 max-w-prose">
-  <div>
-    <h3 class="flex items-center text-xl font-semibold">
-      
-        <a
-          class="text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/solution/build-source-inside-lxc/"
-          >Build source inside lxc for host</a
-        >
-      
-      
-      
-    </h3>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
-      
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <span title="Reading time">2 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-  
-
-
-    </div>
-    
-      <div class="py-1 prose dark:prose-invert">
-        When we build package/application from source, building process may requires a lot of depending dev packges to be installed, and we don&#39;t really want to install those dev packages, and want ot keeper our system as small, clean as possible.
-      </div>
-    
-  </div>
-</article>
-
-        
-          <article class="flex flex-row mt-6 max-w-prose">
-  <div>
-    <h3 class="flex items-center text-xl font-semibold">
-      
-        <a
-          class="text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/solution/docker-network/"
-          >Configure Docker Network</a
-        >
-      
-      
-      
-    </h3>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
-      
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <span title="Reading time">2 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-  
-
-
-    </div>
-    
-      <div class="py-1 prose dark:prose-invert">
-        Docker container based solution is easy to deploy and manage, but Auto IP manage (IPAM) may not be suitable for operations.
-      </div>
-    
-  </div>
-</article>
-
-        
-          <article class="flex flex-row mt-6 max-w-prose">
-  <div>
-    <h3 class="flex items-center text-xl font-semibold">
-      
-        <a
-          class="text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/solution/vm-vlan/"
-          >Configure vm VLAN</a
-        >
-      
-      
-      
-    </h3>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
-      
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <span title="Reading time">6 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-  
-
-
-    </div>
-    
-      <div class="py-1 prose dark:prose-invert">
-        To isolate vm instances, we can assign different VLAN to vm instances.
-      </div>
-    
-  </div>
-</article>
-
-        
-          <article class="flex flex-row mt-6 max-w-prose">
-  <div>
-    <h3 class="flex items-center text-xl font-semibold">
-      
-        <a
-          class="text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/solution/virt-network/"
-          >Workstation Network Virtualization</a
-        >
-      
-      
-      
-    </h3>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
-      
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <span title="Reading time">2 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-  
-
-
-    </div>
-    
-      <div class="py-1 prose dark:prose-invert">
-        Running multiple docker/lxc containers and few virtual machines on a single workstation requires to design an ioslated multiple VLAN virutalization network.
-      </div>
-    
-  </div>
-</article>
-
-        
-      
+    <section class="mt-10 prose dark:prose-invert">
+      <p class="py-8 border-t">
+        <em>There's no articles to list here yet.</em>
+      </p>
     </section>
-    
-
   
 
+        
+          <div
+            class="pointer-events-none absolute top-[100vh] bottom-0 w-12 ltr:right-0 rtl:left-0"
+          >
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
         
       </main><footer class="py-10 print:hidden">
   

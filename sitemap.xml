@@ -4,6 +4,34 @@
   
     
       <url>
+            <loc>/</loc>
+            <lastmod>2023-03-03T10:15:25+08:00</lastmod>
+          </url>
+    
+  
+    
+      <url>
+            <loc>/solution/</loc>
+            <lastmod>2023-03-03T10:15:25+08:00</lastmod>
+          </url>
+    
+  
+    
+      <url>
+            <loc>/solution/upgrade-pg-from-12-to-14/</loc>
+            <lastmod>2023-03-03T10:15:25+08:00</lastmod>
+          </url>
+    
+  
+    
+      <url>
+            <loc>/solution/build-source-inside-lxc/</loc>
+            <lastmod>2023-02-16T13:23:30+08:00</lastmod>
+          </url>
+    
+  
+    
+      <url>
             <loc>/notes/nft-tracing/</loc>
             <lastmod>2023-02-16T10:55:07+08:00</lastmod>
           </url>
@@ -18,23 +46,15 @@
   
     
       <url>
-            <loc>/</loc>
-            <lastmod>2023-02-16T10:55:07+08:00</lastmod>
-          </url>
-    
-  
-    
-      <url>
             <loc>/solution/docker-network/</loc>
             <lastmod>2023-02-16T10:27:54+08:00</lastmod>
           </url>
     
   
     
-      <url>
-            <loc>/solution/</loc>
-            <lastmod>2023-02-16T10:27:54+08:00</lastmod>
-          </url>
+  
+    
+  
     
   
     
@@ -45,13 +65,13 @@
     
   
     
+  
+    
+  
+    
       <url>
             <loc>/develop/</loc>
           </url>
-    
-  
-    
-  
     
   
     

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Upgrade PostgreSQL From 12 to 14 on Zhou</title>
+    <link>/solution/upgrade-pg-from-12-to-14/</link>
+    <description>Recent content in Upgrade PostgreSQL From 12 to 14 on Zhou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2023 </copyright>
+    <lastBuildDate>Fri, 03 Mar 2023 10:15:25 +0800</lastBuildDate><atom:link href="/solution/upgrade-pg-from-12-to-14/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>
