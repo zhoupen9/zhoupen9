@@ -19,15 +19,15 @@
   <meta name="theme-color" content="rgb(255,255,255)" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>Solution &middot; Zhou</title>
-    <meta name="title" content="Solution &middot; Zhou" />
+  <title>Home Network &middot; Zhou</title>
+    <meta name="title" content="Home Network &middot; Zhou" />
   
-  <meta name="description" content="What i&#39;ve been practcing of design and deployment in dev/test/prod environment" />
+  <meta name="description" content="A personal github page" />
   
   
   
-  <link rel="canonical" href="/solution/" />
-  <link rel="alternate" type="application/rss+xml" href="/solution/index.xml" title="Zhou" />
+  <link rel="canonical" href="/solution/home-network/" />
+  <link rel="alternate" type="application/rss+xml" href="/solution/home-network/index.xml" title="Zhou" />
   
   
   
@@ -74,14 +74,14 @@
   
   
   
-  <meta property="og:title" content="Solution" />
-<meta property="og:description" content="What i&#39;ve been practcing of design and deployment in dev/test/prod environment" />
+  <meta property="og:title" content="Home Network" />
+<meta property="og:description" content="A personal github page" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="/solution/" /><meta property="og:site_name" content="Zhou" />
+<meta property="og:url" content="/solution/home-network/" /><meta property="og:site_name" content="Zhou" />
 
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Solution"/>
-<meta name="twitter:description" content="What i&#39;ve been practcing of design and deployment in dev/test/prod environment"/>
+<meta name="twitter:title" content="Home Network"/>
+<meta name="twitter:description" content="A personal github page"/>
 
   
   
@@ -273,6 +273,8 @@
   
     
   
+    
+  
   <li class="inline hidden">
     <a
       class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
@@ -282,7 +284,7 @@
   </li>
 
   
-  <li class="inline hidden">
+  <li class="inline ">
     <a
       class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
       href="/solution/"
@@ -290,462 +292,306 @@
     ><span class="px-1 text-primary-500">/</span>
   </li>
 
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/solution/home-network/"
+      >Home Network</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
 </ol>
 
 
     
-    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">Solution</h1>
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">Home Network</h1>
   </header>
   <section
-    class="mt-0 prose flex max-w-full flex-col dark:prose-invert lg:flex-row"
+    class="mt-12 prose flex max-w-full flex-col dark:prose-invert lg:flex-row"
   >
     
-    <div class="min-w-0 min-h-0 max-w-prose grow">
-      <div class="lead !mb-9 text-xl">
-  What i&rsquo;ve been practcing of design and deployment in dev/test/prod environment.
-</div>
+      <div class="order-first px-0 lg:order-last lg:max-w-xs ltr:lg:pl-8 rtl:lg:pr-8">
+        <div class="toc ltr:pl-5 rtl:pr-5 lg:sticky lg:top-10">
+          <details open class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
+  >
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#headline-1">Server specification</a>
+</li>
+<li><a href="#headline-2">Goal</a>
+<ul>
+<li><a href="#headline-3">NAS</a>
+</li>
+<li><a href="#headline-4">Media server</a>
+</li>
+<li><a href="#headline-5">Software Router</a>
+</li>
+</ul>
+</li>
+<li><a href="#headline-6">Preparation</a>
+<ul>
+<li><a href="#headline-7">multi-ports NIC</a>
+</li>
+<li><a href="#headline-8">10G NIC</a>
+</li>
+<li><a href="#headline-9">HBA Card</a>
+</li>
+</ul>
+</li>
+<li><a href="#headline-10">Topology</a>
+</li>
+<li><a href="#headline-11">Proxmox</a>
+</li>
+</ul>
+</nav>
+  </div>
+</details>
 
-<hr>
+        </div>
+      </div>
+    
+    <div class="min-w-0 min-h-0 max-w-prose grow">
+      
+<p>
+I built my home server last year. The home server uses my old home desktop, Intel i7-4790, Gigabyte z97 and old case.
+Home server does not require a lot of computing power, but it does requires certain mount of memory.</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Server specification
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<table>
+<thead>
+<tr>
+<th>-</th>
+<th>-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>intel i7-4790</td>
+</tr>
+<tr>
+<td>motherboard</td>
+<td>Gigabyte z97</td>
+</tr>
+<tr>
+<td>memory</td>
+<td>4 x 8GB @1600Mhz</td>
+</tr>
+<tr>
+<td>system disk</td>
+<td>1gen m2 256GB SSD</td>
+</tr>
+<tr>
+<td>NIC</td>
+<td>onboard intel i217-V</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Goal
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<div id="outline-container-headline-3" class="outline-3">
+<h3 id="headline-3">
+NAS
+</h3>
+<div id="outline-text-headline-3" class="outline-text-3">
+<p>I want a network attached storage server to provide samba share, and also to provide iSCSI service for
+those virtual machines running on my home desktop.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Media server
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>I want to run a media server virtual machine (such as jellyfin) store photos and movies.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Software Router
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>I want to run a pfSense server as main router and firewall, and let pfSense to manage all the subnets
+in my home. I also requires an OpenWrt router to provide proxying service, which allows all the devices
+to access some non-demostic content.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+Preparation
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+multi-ports NIC
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>To manage my home network, the home server requries a multi-ports network adapter.
+I bought an used Intel i350T4 server NIC with 4 ports to connect all my home subnet.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+10G NIC
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>To provide higher speed for iSCSI access, i bought two used mallenox ConnectX-3 cards.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+HBA Card
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>I bought an used Broadcom / LSI SAS2308 raid/hba card to connect 3 used small capacity SSDs.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+Topology
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>The home server runs Proxmox VE to host all required virtual machines.
+Pass PCIe intel i350T4 for pfSesne vm, and one of 4 ports connects to uplink fiber modem.
+The other 3 ports connect to three subnet of home network.</p>
+<pre class="example">
+                                       |
+                                 +-------------+
+                                 | fiber modem |
+                                 +-------------+
+                                       |
+                     +-------------------------------------+          +----------------------+
+                     |          pfSense VM                 |          |   OpenWrt VM         |
+                     +-------------------------------------+          +----------------------+
+                        |         |           |      |                             |
+                        |   +--------------+  |  +---------------------------------------+
+                        |   | ASUS Router  |  |  |          br-vpc Linux Bridge          |
+                        |   |   ap mode    |  |  +---------------------------------------+
+                        |   +--------------+  |                     |
+                        |                     |       +----------------------------+
+            +----------------------+          |       |      trueNAS Scale VM      |
+            |  mercury AC/Router   |          |       +----------------------------+
+            +----------------------+          | 1GB                 | 10GB
+               |              |             +---------------------------------------+
+   +-----------------+  +-------------+     |             Home Desktop              |
+   |ethernet sockets |  | mercury ap  |     +---------------------------------------+
+   +-----------------+  +-------------+
+</pre>
+<ul>
+<li>pfSense works as a PPPoE dialer, and also connect to my company&#39;s openVPN.</li>
+<li>pfSense provides DHCP for all my home subnets.</li>
+<li>pfSense has firewall fules for all subnets</li>
+<li>Proxmox connect to ASUS Router for management and internet connectivity</li>
+<li>OpenWrt works as a side router, and connected to a linux bridge</li>
+<li>trueNAS SCALE server connected to linux bridge as management, and 10GB connected directly to home desktop
+in a dedicated subnet</li>
+<li>Mercury configured in one of pfSense managed subnet, and avoid ip address conflicts with pfSense</li>
+<li>all smart devices connected to ASUS Router (AP) in 2.4Ghz</li>
+<li>Mercury ap panel only support up to 120Mbps connection</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+Proxmox
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>Proxmox runs serveral lxc containers and virtual machines.</p>
+<table>
+<tbody>
+<tr>
+<td>vm</td>
+<td>pfSense</td>
+<td>main router, firewall, PPPoE client, OpenVPN client</td>
+</tr>
+<tr>
+<td>vm</td>
+<td>openwrt</td>
+<td>side router, route traffic to domestic and non-domestic</td>
+</tr>
+<tr>
+<td>vm</td>
+<td>trueNAS SCALE</td>
+<td>NAS server with 3 SSD PCIe pass through, smb, iscsi</td>
+</tr>
+<tr>
+<td>vm</td>
+<td>ubunt userver</td>
+<td>application server</td>
+</tr>
+<tr>
+<td>container</td>
+<td>NextCloud</td>
+<td>runs in trueNAS SCALE k3s cluster</td>
+</tr>
+<tr>
+<td>lxc</td>
+<td>gitlab</td>
+<td>git repository</td>
+</tr>
+<tr>
+<td>lxc</td>
+<td>radius</td>
+<td>dev radius server</td>
+</tr>
+<tr>
+<td>lxc</td>
+<td>postgresql</td>
+<td>database server</td>
+</tr>
+<tr>
+<td>lxc</td>
+<td>jellyfin</td>
+<td>media server (with intel iGPU accel)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 
     </div>
   </section>
   
-    <section>
-      
-        
-          <article class="flex flex-row mt-6 max-w-prose">
-  <div>
-    <h3 class="flex items-center text-xl font-semibold">
-      
-        <a
-          class="text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/solution/home-network/"
-          >Home Network</a
-        >
-      
-      
-      
-    </h3>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
-      
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <span title="Reading time">3 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-  
-
-
-    </div>
-    
-      <div class="py-1 prose dark:prose-invert">
-        I built my home server last year.
-      </div>
-    
-  </div>
-</article>
-
-        
-          <article class="flex flex-row mt-6 max-w-prose">
-  <div>
-    <h3 class="flex items-center text-xl font-semibold">
-      
-        <a
-          class="text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/solution/workstation-network/"
-          >Workstation Network</a
-        >
-      
-      
-      
-    </h3>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
-      
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <span title="Reading time">3 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-  
-
-
-    </div>
-    
-      <div class="py-1 prose dark:prose-invert">
-        I build a new desktop last year (2022-11) as a workstation for my work.
-      </div>
-    
-  </div>
-</article>
-
-        
-          <article class="flex flex-row mt-6 max-w-prose">
-  <div>
-    <h3 class="flex items-center text-xl font-semibold">
-      
-        <a
-          class="text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/solution/upgrade-pg-from-12-to-14/"
-          >Upgrade PostgreSQL From 12 to 14</a
-        >
-      
-      
-      
-    </h3>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
-      
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <span title="Reading time">2 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-  
-
-
-    </div>
-    
-      <div class="py-1 prose dark:prose-invert">
-        PostgreSQL 12 data files is not compatible with version 14, existing database requires to upgrade.
-      </div>
-    
-  </div>
-</article>
-
-        
-          <article class="flex flex-row mt-6 max-w-prose">
-  <div>
-    <h3 class="flex items-center text-xl font-semibold">
-      
-        <a
-          class="text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/solution/build-source-inside-lxc/"
-          >Build source inside lxc for host</a
-        >
-      
-      
-      
-    </h3>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
-      
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <span title="Reading time">2 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-  
-
-
-    </div>
-    
-      <div class="py-1 prose dark:prose-invert">
-        When we build package/application from source, building process may requires a lot of depending dev packges to be installed, and we don&#39;t really want to install those dev packages, and want ot keeper our system as small, clean as possible.
-      </div>
-    
-  </div>
-</article>
-
-        
-          <article class="flex flex-row mt-6 max-w-prose">
-  <div>
-    <h3 class="flex items-center text-xl font-semibold">
-      
-        <a
-          class="text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/solution/docker-network/"
-          >Configure Docker Network</a
-        >
-      
-      
-      
-    </h3>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
-      
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <span title="Reading time">2 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-  
-
-
-    </div>
-    
-      <div class="py-1 prose dark:prose-invert">
-        Docker container based solution is easy to deploy and manage, but Auto IP manage (IPAM) may not be suitable for operations.
-      </div>
-    
-  </div>
-</article>
-
-        
-          <article class="flex flex-row mt-6 max-w-prose">
-  <div>
-    <h3 class="flex items-center text-xl font-semibold">
-      
-        <a
-          class="text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/solution/vm-vlan/"
-          >Configure vm VLAN</a
-        >
-      
-      
-      
-    </h3>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
-      
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <span title="Reading time">6 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-  
-
-
-    </div>
-    
-      <div class="py-1 prose dark:prose-invert">
-        To isolate vm instances, we can assign different VLAN to vm instances.
-      </div>
-    
-  </div>
-</article>
-
-        
-          <article class="flex flex-row mt-6 max-w-prose">
-  <div>
-    <h3 class="flex items-center text-xl font-semibold">
-      
-        <a
-          class="text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/solution/virt-network/"
-          >Workstation Network Virtualization</a
-        >
-      
-      
-      
-    </h3>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
-      
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <span title="Reading time">2 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-  
-
-
-    </div>
-    
-      <div class="py-1 prose dark:prose-invert">
-        Running multiple docker/lxc containers and few virtual machines on a single workstation requires to design an ioslated multiple VLAN virutalization network.
-      </div>
-    
-  </div>
-</article>
-
-        
-      
+    <section class="mt-10 prose dark:prose-invert">
+      <p class="py-8 border-t">
+        <em>There's no articles to list here yet.</em>
+      </p>
     </section>
-    
-
   
 
+        
+          <div
+            class="pointer-events-none absolute top-[100vh] bottom-0 w-12 ltr:right-0 rtl:left-0"
+          >
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
         
       </main><footer class="py-10 print:hidden">
   

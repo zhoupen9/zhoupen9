@@ -19,15 +19,15 @@
   <meta name="theme-color" content="rgb(255,255,255)" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>Solution &middot; Zhou</title>
-    <meta name="title" content="Solution &middot; Zhou" />
+  <title>Workstation Network &middot; Zhou</title>
+    <meta name="title" content="Workstation Network &middot; Zhou" />
   
-  <meta name="description" content="What i&#39;ve been practcing of design and deployment in dev/test/prod environment" />
+  <meta name="description" content="A personal github page" />
   
   
   
-  <link rel="canonical" href="/solution/" />
-  <link rel="alternate" type="application/rss+xml" href="/solution/index.xml" title="Zhou" />
+  <link rel="canonical" href="/solution/workstation-network/" />
+  <link rel="alternate" type="application/rss+xml" href="/solution/workstation-network/index.xml" title="Zhou" />
   
   
   
@@ -74,14 +74,14 @@
   
   
   
-  <meta property="og:title" content="Solution" />
-<meta property="og:description" content="What i&#39;ve been practcing of design and deployment in dev/test/prod environment" />
+  <meta property="og:title" content="Workstation Network" />
+<meta property="og:description" content="A personal github page" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="/solution/" /><meta property="og:site_name" content="Zhou" />
+<meta property="og:url" content="/solution/workstation-network/" /><meta property="og:site_name" content="Zhou" />
 
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Solution"/>
-<meta name="twitter:description" content="What i&#39;ve been practcing of design and deployment in dev/test/prod environment"/>
+<meta name="twitter:title" content="Workstation Network"/>
+<meta name="twitter:description" content="A personal github page"/>
 
   
   
@@ -273,6 +273,8 @@
   
     
   
+    
+  
   <li class="inline hidden">
     <a
       class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
@@ -282,7 +284,7 @@
   </li>
 
   
-  <li class="inline hidden">
+  <li class="inline ">
     <a
       class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
       href="/solution/"
@@ -290,462 +292,242 @@
     ><span class="px-1 text-primary-500">/</span>
   </li>
 
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/solution/workstation-network/"
+      >Workstation Network</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
 </ol>
 
 
     
-    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">Solution</h1>
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">Workstation Network</h1>
   </header>
   <section
-    class="mt-0 prose flex max-w-full flex-col dark:prose-invert lg:flex-row"
+    class="mt-12 prose flex max-w-full flex-col dark:prose-invert lg:flex-row"
   >
     
-    <div class="min-w-0 min-h-0 max-w-prose grow">
-      <div class="lead !mb-9 text-xl">
-  What i&rsquo;ve been practcing of design and deployment in dev/test/prod environment.
-</div>
+      <div class="order-first px-0 lg:order-last lg:max-w-xs ltr:lg:pl-8 rtl:lg:pr-8">
+        <div class="toc ltr:pl-5 rtl:pr-5 lg:sticky lg:top-10">
+          <details open class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
+  >
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#headline-1">one router to rule them all</a>
+</li>
+<li><a href="#headline-2">route traffic in one place</a>
+</li>
+<li><a href="#headline-3">no configuration for any network access end</a>
+</li>
+<li><a href="#headline-4">topology</a>
+<ul>
+<li><a href="#headline-5">external connectivity</a>
+</li>
+<li><a href="#headline-6">wifi (ap)</a>
+</li>
+<li><a href="#headline-7">subnets</a>
+</li>
+<li><a href="#headline-8">traffic routing</a>
+</li>
+</ul>
+</li>
+<li><a href="#headline-9">br-host</a>
+</li>
+<li><a href="#headline-10">br-route</a>
+</li>
+<li><a href="#headline-11">br-vpc</a>
+</li>
+</ul>
+</nav>
+  </div>
+</details>
 
-<hr>
+        </div>
+      </div>
+    
+    <div class="min-w-0 min-h-0 max-w-prose grow">
+      
+<p>
+I build a new desktop last year (2022-11) as a workstation for my work.
+The network inside this workstation requires to be able to support:</p>
+<ul>
+<li>containerization</li>
+<li>virtualization</li>
+<li>traffic routing</li>
+</ul>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+one router to rule them all
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>I need a single controller to isolate different subnets, allocates ip addresses for subnets, and route
+traffic to the internet. pfSense is a reliable robust fireall &amp; router.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+route traffic in one place
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>I need route traffic based on a set of rules so that i can access domestic resource directly,
+and access non-domestic through a didicated clash endpoint.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+no configuration for any network access end
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>setup clash for every virtual machine, lxc container, desktop, phone or any network access device is tedious,
+i need a network setup can route traffic in one place and configuration free.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+topology
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Workstation uses a pfSense virtual machine as single point to external network (to corp. network and then internet).
+Virtual machine host system uses a bridge egress to the pfSense VM and then external network.</p>
+<pre class="example">
+                         |
+                +--------------------+               +------------------+
+                |     pfSense VM     |               |   openwrt vm     |
+                +--------------------+               +------------------+
+                  |         |    |                     |
+      +----------------+    | +-------------------------+
+      |    br-host     |    | |         br-route        |
+      +----------------+    | +-------------------------+
+               |            |
+               |        +--------------------------+
+               |        |         br-vpc           |
+      +-------------+   +--------------------------+
+      |    ap       |         |               |
+      +-------------+  +----------------+  +--------------+
+               |       | lxc containers |  |     VMs      |
+      +-------------+  +----------------+  +--------------+
+      |   phones    |
+      +-------------+
+</pre>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+external connectivity
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>Block kernel module &#34;igc&#34; for intel I225V ethernet adapter and pass PCIe through to pfSense vm to connect to external network</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+wifi (ap)
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>Run <em>hostapd</em> to provide wifi access point for host subnet, and use pfSense as dns server, dhcp server and default gateway.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+subnets
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>Defines several subnets for host and wifi, lxc container and virtual machiens, and routing  openwrt router.
+Each internal interfaces on pfSense vm configured as subnet gateway and dns server, and pfSense provides
+DHCP on those internal interfaces.</p>
+<ul>
+<li>172.18.0.0/24 host subnet on &#34;br-host&#34; configured with ip 172.18.0.6/24</li>
+<li>172.18.1.0/24 routing subnet on &#34;br-route&#34;</li>
+<li>172.18.10.0/24 vpc, 10 VLAN</li>
+<li>172.18.20.0/24 vpc, 20 VLAN</li>
+<li>172.18.30.0/24 vpc, 30 VLAN</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+traffic routing
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>Add openwrt as a gateway in pfSense, and configure a policy route as firewall rule to route subnet egress traffic (udp and tcp)
+to openwrt. The policy based route firewall rule will be disabled automatically when pfSense detects openwrt is down,
+which is a nice touch.</p>
+<p>
+Run openclash in openwrt router to route traffic based on rules (domestic and non-domestic).</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+br-host
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>pfSense vm has a tap defined and connected to bridge &#34;br-host&#34;, so that host system can route traffic to pfSense.
+pfSense also provides DHCP on bridge &#34;br-host&#34;, all wifi access will acquire ip address from pfSense and uses
+pfSense as default gateway.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+br-route
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>openwrt vm works as a side router, which means pfSense route traffic to openwrt, and openwrt apply rules
+on egress traffic via a clash tun proxy, and all proxied traffic route back to pfSense (openwrt&#39;s default gatway)
+and then traffic goes to external network.</p>
+<p>
+traffic goes back and forth from pfSense to openwrt may work on any subnet.
+When openwrt and pfSense interface lay on same subnet with proxied network end, it will encounter connection issue.
+The egress traffic goes  from end to pfSense, pfSense to openwrt, and ingress goes from openwrt directly back to
+end since they are in same subnet. It will cause host system conntrack considers network traffic as &#34;invalid&#34; state.
+The default firewalld rules will block ingress traffic.
+Modifing firewalld default rules can make it work, but it does not make sense.</p>
+<p>
+Setup a dedicated subnet for routing is a simple way to resolve conntrack state issues.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+br-vpc
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>A linux bridge named &#34;br-vpc&#34; is set up with VLAN to support lxc containers and virtual machines.</p>
+</div>
+</div>
 
     </div>
   </section>
   
-    <section>
-      
-        
-          <article class="flex flex-row mt-6 max-w-prose">
-  <div>
-    <h3 class="flex items-center text-xl font-semibold">
-      
-        <a
-          class="text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/solution/home-network/"
-          >Home Network</a
-        >
-      
-      
-      
-    </h3>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
-      
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <span title="Reading time">3 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-  
-
-
-    </div>
-    
-      <div class="py-1 prose dark:prose-invert">
-        I built my home server last year.
-      </div>
-    
-  </div>
-</article>
-
-        
-          <article class="flex flex-row mt-6 max-w-prose">
-  <div>
-    <h3 class="flex items-center text-xl font-semibold">
-      
-        <a
-          class="text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/solution/workstation-network/"
-          >Workstation Network</a
-        >
-      
-      
-      
-    </h3>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
-      
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <span title="Reading time">3 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-  
-
-
-    </div>
-    
-      <div class="py-1 prose dark:prose-invert">
-        I build a new desktop last year (2022-11) as a workstation for my work.
-      </div>
-    
-  </div>
-</article>
-
-        
-          <article class="flex flex-row mt-6 max-w-prose">
-  <div>
-    <h3 class="flex items-center text-xl font-semibold">
-      
-        <a
-          class="text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/solution/upgrade-pg-from-12-to-14/"
-          >Upgrade PostgreSQL From 12 to 14</a
-        >
-      
-      
-      
-    </h3>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
-      
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <span title="Reading time">2 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-  
-
-
-    </div>
-    
-      <div class="py-1 prose dark:prose-invert">
-        PostgreSQL 12 data files is not compatible with version 14, existing database requires to upgrade.
-      </div>
-    
-  </div>
-</article>
-
-        
-          <article class="flex flex-row mt-6 max-w-prose">
-  <div>
-    <h3 class="flex items-center text-xl font-semibold">
-      
-        <a
-          class="text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/solution/build-source-inside-lxc/"
-          >Build source inside lxc for host</a
-        >
-      
-      
-      
-    </h3>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
-      
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <span title="Reading time">2 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-  
-
-
-    </div>
-    
-      <div class="py-1 prose dark:prose-invert">
-        When we build package/application from source, building process may requires a lot of depending dev packges to be installed, and we don&#39;t really want to install those dev packages, and want ot keeper our system as small, clean as possible.
-      </div>
-    
-  </div>
-</article>
-
-        
-          <article class="flex flex-row mt-6 max-w-prose">
-  <div>
-    <h3 class="flex items-center text-xl font-semibold">
-      
-        <a
-          class="text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/solution/docker-network/"
-          >Configure Docker Network</a
-        >
-      
-      
-      
-    </h3>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
-      
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <span title="Reading time">2 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-  
-
-
-    </div>
-    
-      <div class="py-1 prose dark:prose-invert">
-        Docker container based solution is easy to deploy and manage, but Auto IP manage (IPAM) may not be suitable for operations.
-      </div>
-    
-  </div>
-</article>
-
-        
-          <article class="flex flex-row mt-6 max-w-prose">
-  <div>
-    <h3 class="flex items-center text-xl font-semibold">
-      
-        <a
-          class="text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/solution/vm-vlan/"
-          >Configure vm VLAN</a
-        >
-      
-      
-      
-    </h3>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
-      
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <span title="Reading time">6 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-  
-
-
-    </div>
-    
-      <div class="py-1 prose dark:prose-invert">
-        To isolate vm instances, we can assign different VLAN to vm instances.
-      </div>
-    
-  </div>
-</article>
-
-        
-          <article class="flex flex-row mt-6 max-w-prose">
-  <div>
-    <h3 class="flex items-center text-xl font-semibold">
-      
-        <a
-          class="text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/solution/virt-network/"
-          >Workstation Network Virtualization</a
-        >
-      
-      
-      
-    </h3>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
-      
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <span title="Reading time">2 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-  
-
-
-    </div>
-    
-      <div class="py-1 prose dark:prose-invert">
-        Running multiple docker/lxc containers and few virtual machines on a single workstation requires to design an ioslated multiple VLAN virutalization network.
-      </div>
-    
-  </div>
-</article>
-
-        
-      
+    <section class="mt-10 prose dark:prose-invert">
+      <p class="py-8 border-t">
+        <em>There's no articles to list here yet.</em>
+      </p>
     </section>
-    
-
   
 
+        
+          <div
+            class="pointer-events-none absolute top-[100vh] bottom-0 w-12 ltr:right-0 rtl:left-0"
+          >
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
         
       </main><footer class="py-10 print:hidden">
   
