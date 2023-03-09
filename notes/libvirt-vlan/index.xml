@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Libvirt Vlan on Zhou</title>
+    <link>/notes/libvirt-vlan/</link>
+    <description>Recent content in Libvirt Vlan on Zhou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2023 </copyright>
+    <lastBuildDate>Thu, 09 Mar 2023 14:55:32 +0800</lastBuildDate><atom:link href="/notes/libvirt-vlan/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>

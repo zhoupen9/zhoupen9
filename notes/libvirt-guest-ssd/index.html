@@ -19,15 +19,15 @@
   <meta name="theme-color" content="rgb(255,255,255)" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>Tags &middot; Zhou</title>
-    <meta name="title" content="Tags &middot; Zhou" />
+  <title>Libvirt Guest SSD &middot; Zhou</title>
+    <meta name="title" content="Libvirt Guest SSD &middot; Zhou" />
   
   <meta name="description" content="A personal github page" />
   
   
   
-  <link rel="canonical" href="/tags/" />
-  <link rel="alternate" type="application/rss+xml" href="/tags/index.xml" title="Zhou" />
+  <link rel="canonical" href="/notes/libvirt-guest-ssd/" />
+  <link rel="alternate" type="application/rss+xml" href="/notes/libvirt-guest-ssd/index.xml" title="Zhou" />
   
   
   
@@ -74,13 +74,13 @@
   
   
   
-  <meta property="og:title" content="Tags" />
+  <meta property="og:title" content="Libvirt Guest SSD" />
 <meta property="og:description" content="A personal github page" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="/tags/" /><meta property="og:site_name" content="Zhou" />
+<meta property="og:url" content="/notes/libvirt-guest-ssd/" /><meta property="og:site_name" content="Zhou" />
 
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Tags"/>
+<meta name="twitter:title" content="Libvirt Guest SSD"/>
 <meta name="twitter:description" content="A personal github page"/>
 
   
@@ -265,10 +265,13 @@
     <div class="relative flex flex-col grow">
       <main id="main-content" class="grow">
         
+  
   <header>
     
       <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
   
+  
+    
   
     
   
@@ -281,11 +284,20 @@
   </li>
 
   
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/notes/"
+      >Notes</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
   <li class="inline hidden">
     <a
       class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
-      href="/tags/"
-      >Tags</a
+      href="/notes/libvirt-guest-ssd/"
+      >Libvirt Guest SSD</a
     ><span class="px-1 text-primary-500">/</span>
   </li>
 
@@ -293,116 +305,123 @@
 
 
     
-    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">Tags</h1>
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">Libvirt Guest SSD</h1>
   </header>
-  
-    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
-      <div class="min-w-0 min-h-0 max-w-prose grow">
-        <p>Content group by tags.</p>
-<hr>
+  <section
+    class="mt-12 prose flex max-w-full flex-col dark:prose-invert lg:flex-row"
+  >
+    
+      <div class="order-first px-0 lg:order-last lg:max-w-xs ltr:lg:pl-8 rtl:lg:pr-8">
+        <div class="toc ltr:pl-5 rtl:pr-5 lg:sticky lg:top-10">
+          <details open class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
+  >
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#headline-1">enable qemu tags</a>
+</li>
+<li><a href="#headline-2">get disk device id</a>
+</li>
+<li><a href="#headline-3">add qemu override</a>
+<ul>
+<li><a href="#headline-4">add qemu command line arguments when provide disk</a>
+</li>
+<li><a href="#headline-5">override qemu command line arguments</a>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+  </div>
+</details>
 
+        </div>
       </div>
+    
+    <div class="min-w-0 min-h-0 max-w-prose grow">
+      
+<p>
+Guest virtual machines may requires to know that provisioned disks are ssd or not,
+so that system runs <code>trim</code> command when discard unused disk spaces.</p>
+<div id="outline-container-headline-1" class="outline-3">
+<h3 id="headline-1">
+enable qemu tags
+</h3>
+<div id="outline-text-headline-1" class="outline-text-3">
+<p>Disk types are not supported by libvirt yet, QEMU command line arguments required when using libvirt.</p>
+<p>
+Add <code class="verbatim">qemu:xxx</code> tags mentioned in libvirt QEMU arguments.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-3">
+<h3 id="headline-2">
+get disk device id
+</h3>
+<div id="outline-text-headline-2" class="outline-text-3">
+<p>for <code>scsi</code> disks, get disk device id line</p>
+<div class="src src-xml">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">  <span class="nt">&lt;address</span> <span class="na">type=</span><span class="s">&#34;drive&#34;</span> <span class="na">controller=</span><span class="s">&#34;0&#34;</span> <span class="na">bus=</span><span class="s">&#34;0&#34;</span> <span class="na">target=</span><span class="s">&#34;0&#34;</span> <span class="na">unit=</span><span class="s">&#34;1&#34;</span><span class="nt">/&gt;</span></span></span></code></pre></div>
+</div>
+<p>the disk device id is <code class="verbatim">scsi0-0-0-1</code>.</p>
+<p>
+Disk device can be <code>sata</code> or <code>scsi</code>.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-3">
+<h3 id="headline-3">
+add qemu override
+</h3>
+<div id="outline-text-headline-3" class="outline-text-3">
+<div id="outline-container-headline-4" class="outline-4">
+<h4 id="headline-4">
+add qemu command line arguments when provide disk
+</h4>
+<div id="outline-text-headline-4" class="outline-text-4">
+<div class="src src-xml">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">  <span class="nt">&lt;qemu:commandline&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;qemu:arg</span> <span class="na">value=</span><span class="s">&#39;-set&#39;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;qemu:arg</span> <span class="na">value=</span><span class="s">&#39;device.scsi0-0-0-1.rotation_rate=1&#39;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/qemu:commandline&gt;</span></span></span></code></pre></div>
+</div>
+<p>
+  The qemu command line argument may not work due to &#39;no such device&#39; error.
+When encountered this error, try <em>override</em> instead.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-4">
+<h4 id="headline-5">
+override qemu command line arguments
+</h4>
+<div id="outline-text-headline-5" class="outline-text-4">
+<div class="src src-xml">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">  <span class="nt">&lt;qemu:override&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;qemu:device</span> <span class="na">alias=</span><span class="s">&#34;scsi0-0-0-1&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;qemu:frontend&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;qemu:property</span> <span class="na">name=</span><span class="s">&#34;rotation_rate&#34;</span> <span class="na">type=</span><span class="s">&#34;unsigned&#34;</span> <span class="na">value=</span><span class="s">&#34;1&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;/qemu:frontend&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/qemu:device&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/qemu:override&gt;</span></span></span></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    </div>
+  </section>
+  
+    <section class="mt-10 prose dark:prose-invert">
+      <p class="py-8 border-t">
+        <em>There's no articles to list here yet.</em>
+      </p>
     </section>
   
-  <section class="flex flex-wrap -mx-2 overflow-hidden">
-    
-      <article class="w-full px-2 my-3 overflow-hidden sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
-        <h2 class="flex items-center">
-          <a
-            class="text-xl font-medium decoration-primary-500 hover:underline hover:underline-offset-2"
-            href="/tags/docker/"
-            >docker</a
-          >
-          
-            <span class="px-2 text-base text-primary-500">&middot;</span>
-            <span class="text-base text-neutral-400">
-              1
-            </span>
-          
-        </h2>
-      </article>
-    
-      <article class="w-full px-2 my-3 overflow-hidden sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
-        <h2 class="flex items-center">
-          <a
-            class="text-xl font-medium decoration-primary-500 hover:underline hover:underline-offset-2"
-            href="/tags/libvirt/"
-            >libvirt</a
-          >
-          
-            <span class="px-2 text-base text-primary-500">&middot;</span>
-            <span class="text-base text-neutral-400">
-              1
-            </span>
-          
-        </h2>
-      </article>
-    
-      <article class="w-full px-2 my-3 overflow-hidden sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
-        <h2 class="flex items-center">
-          <a
-            class="text-xl font-medium decoration-primary-500 hover:underline hover:underline-offset-2"
-            href="/tags/network/"
-            >network</a
-          >
-          
-            <span class="px-2 text-base text-primary-500">&middot;</span>
-            <span class="text-base text-neutral-400">
-              2
-            </span>
-          
-        </h2>
-      </article>
-    
-      <article class="w-full px-2 my-3 overflow-hidden sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
-        <h2 class="flex items-center">
-          <a
-            class="text-xl font-medium decoration-primary-500 hover:underline hover:underline-offset-2"
-            href="/tags/ssd/"
-            >ssd</a
-          >
-          
-            <span class="px-2 text-base text-primary-500">&middot;</span>
-            <span class="text-base text-neutral-400">
-              1
-            </span>
-          
-        </h2>
-      </article>
-    
-      <article class="w-full px-2 my-3 overflow-hidden sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
-        <h2 class="flex items-center">
-          <a
-            class="text-xl font-medium decoration-primary-500 hover:underline hover:underline-offset-2"
-            href="/tags/virtualization/"
-            >virtualization</a
-          >
-          
-            <span class="px-2 text-base text-primary-500">&middot;</span>
-            <span class="text-base text-neutral-400">
-              1
-            </span>
-          
-        </h2>
-      </article>
-    
-      <article class="w-full px-2 my-3 overflow-hidden sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
-        <h2 class="flex items-center">
-          <a
-            class="text-xl font-medium decoration-primary-500 hover:underline hover:underline-offset-2"
-            href="/tags/vlan/"
-            >vlan</a
-          >
-          
-            <span class="px-2 text-base text-primary-500">&middot;</span>
-            <span class="text-base text-neutral-400">
-              1
-            </span>
-          
-        </h2>
-      </article>
-    
-  </section>
 
         
       </main><footer class="py-10 print:hidden">

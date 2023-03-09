@@ -19,15 +19,15 @@
   <meta name="theme-color" content="rgb(255,255,255)" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>Tags &middot; Zhou</title>
-    <meta name="title" content="Tags &middot; Zhou" />
+  <title>Proxmox Vlan &middot; Zhou</title>
+    <meta name="title" content="Proxmox Vlan &middot; Zhou" />
   
   <meta name="description" content="A personal github page" />
   
   
   
-  <link rel="canonical" href="/tags/" />
-  <link rel="alternate" type="application/rss+xml" href="/tags/index.xml" title="Zhou" />
+  <link rel="canonical" href="/notes/proxmox-vlan/" />
+  <link rel="alternate" type="application/rss+xml" href="/notes/proxmox-vlan/index.xml" title="Zhou" />
   
   
   
@@ -74,13 +74,13 @@
   
   
   
-  <meta property="og:title" content="Tags" />
+  <meta property="og:title" content="Proxmox Vlan" />
 <meta property="og:description" content="A personal github page" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="/tags/" /><meta property="og:site_name" content="Zhou" />
+<meta property="og:url" content="/notes/proxmox-vlan/" /><meta property="og:site_name" content="Zhou" />
 
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Tags"/>
+<meta name="twitter:title" content="Proxmox Vlan"/>
 <meta name="twitter:description" content="A personal github page"/>
 
   
@@ -265,10 +265,13 @@
     <div class="relative flex flex-col grow">
       <main id="main-content" class="grow">
         
+  
   <header>
     
       <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
   
+  
+    
   
     
   
@@ -281,11 +284,20 @@
   </li>
 
   
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/notes/"
+      >Notes</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
   <li class="inline hidden">
     <a
       class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
-      href="/tags/"
-      >Tags</a
+      href="/notes/proxmox-vlan/"
+      >Proxmox Vlan</a
     ><span class="px-1 text-primary-500">/</span>
   </li>
 
@@ -293,117 +305,113 @@
 
 
     
-    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">Tags</h1>
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">Proxmox Vlan</h1>
   </header>
-  
-    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
-      <div class="min-w-0 min-h-0 max-w-prose grow">
-        <p>Content group by tags.</p>
-<hr>
+  <section
+    class="mt-12 prose flex max-w-full flex-col dark:prose-invert lg:flex-row"
+  >
+    
+      <div class="order-first px-0 lg:order-last lg:max-w-xs ltr:lg:pl-8 rtl:lg:pr-8">
+        <div class="toc ltr:pl-5 rtl:pr-5 lg:sticky lg:top-10">
+          <details open class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
+  >
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#headline-1">Configuration in UI</a>
+</li>
+<li><a href="#headline-2">Configure in conf file</a>
+</li>
+</ul>
+</nav>
+  </div>
+</details>
 
+        </div>
       </div>
+    
+    <div class="min-w-0 min-h-0 max-w-prose grow">
+      
+<p>
+Virtual machines and networking may requires to support VLAN configurations.
+Proxmox handles configuration much easier than libvirt. see <a href="id:606333bc-4a6c-41e4-b808-455455931a39">Setup vnet vlan</a>.</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Configuration in UI
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>In proxmox&#39;s web ui, virtual machine&#39;s network, and lxc container&#39;s network configuration
+ui has a <em>VLAN Tag</em> option, and it has <em>no VLAN</em> as default.</p>
+<p>
+Specifying a valid VLAN tag (2-4094) will cause proxmox setup tap device VLAN id on parent bridge
+for virtual machines, and setup veth device VLAN id on parent bridge for lxc containers.</p>
+<p>
+Check ports and VLAN</p>
+<div class="src src-shell">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  brctl show
+</span></span><span class="line"><span class="cl">  bridge vlan show</span></span></code></pre></div>
+</div>
+<p>
+Those VLAN tags configured in web ui proxmox configures as PVID (Port VLAN ID), and
+also configures as <em>egress untaged</em>.  Which means that configured tap device ports and veth device ports
+on the bridge work like physical switch&#39;s  &#34;Access Port&#34;.</p>
+<ul>
+<li>virtual machines and lxc containers configured this way does not understand and do anything
+abount VLAN tag.</li>
+<li>Bridge ports ingress has no VLAN tag, and bridge tags packets using PVID</li>
+<li>Bridge ports egress remove VLAN if present</li>
+<li>Bridge switch packets by matching VLAN tags.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Configure in conf file
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>Since web ui only support configure PVID based VLAN tags, multiple VLAN tags on a single device
+(trunk) can not be configured from the web ui.
+To configure trunk ports, open virtual machines configuration file, and modify network configuration.</p>
+<p>
+For example, we want trunk VLAN 10,20,30 to pfSense vm(id 101).
+Edit <code class="verbatim">/etc/pve/qemu-server/101.conf</code>, and modify network configuration line(s).</p>
+<pre class="example">
+net0: virtio=01:02:03:04:05:ab,bridge=vmbr0,trunks=10;20;30
+</pre>
+<p>
+NOTE: trunk VLAN tags requires to be separated by &#34;;&#34; (not &#34;,&#34;)</p>
+</div>
+</div>
+
+    </div>
+  </section>
+  
+    <section class="mt-10 prose dark:prose-invert">
+      <p class="py-8 border-t">
+        <em>There's no articles to list here yet.</em>
+      </p>
     </section>
   
-  <section class="flex flex-wrap -mx-2 overflow-hidden">
-    
-      <article class="w-full px-2 my-3 overflow-hidden sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
-        <h2 class="flex items-center">
-          <a
-            class="text-xl font-medium decoration-primary-500 hover:underline hover:underline-offset-2"
-            href="/tags/docker/"
-            >docker</a
-          >
-          
-            <span class="px-2 text-base text-primary-500">&middot;</span>
-            <span class="text-base text-neutral-400">
-              1
-            </span>
-          
-        </h2>
-      </article>
-    
-      <article class="w-full px-2 my-3 overflow-hidden sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
-        <h2 class="flex items-center">
-          <a
-            class="text-xl font-medium decoration-primary-500 hover:underline hover:underline-offset-2"
-            href="/tags/libvirt/"
-            >libvirt</a
-          >
-          
-            <span class="px-2 text-base text-primary-500">&middot;</span>
-            <span class="text-base text-neutral-400">
-              1
-            </span>
-          
-        </h2>
-      </article>
-    
-      <article class="w-full px-2 my-3 overflow-hidden sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
-        <h2 class="flex items-center">
-          <a
-            class="text-xl font-medium decoration-primary-500 hover:underline hover:underline-offset-2"
-            href="/tags/network/"
-            >network</a
-          >
-          
-            <span class="px-2 text-base text-primary-500">&middot;</span>
-            <span class="text-base text-neutral-400">
-              2
-            </span>
-          
-        </h2>
-      </article>
-    
-      <article class="w-full px-2 my-3 overflow-hidden sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
-        <h2 class="flex items-center">
-          <a
-            class="text-xl font-medium decoration-primary-500 hover:underline hover:underline-offset-2"
-            href="/tags/ssd/"
-            >ssd</a
-          >
-          
-            <span class="px-2 text-base text-primary-500">&middot;</span>
-            <span class="text-base text-neutral-400">
-              1
-            </span>
-          
-        </h2>
-      </article>
-    
-      <article class="w-full px-2 my-3 overflow-hidden sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
-        <h2 class="flex items-center">
-          <a
-            class="text-xl font-medium decoration-primary-500 hover:underline hover:underline-offset-2"
-            href="/tags/virtualization/"
-            >virtualization</a
-          >
-          
-            <span class="px-2 text-base text-primary-500">&middot;</span>
-            <span class="text-base text-neutral-400">
-              1
-            </span>
-          
-        </h2>
-      </article>
-    
-      <article class="w-full px-2 my-3 overflow-hidden sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
-        <h2 class="flex items-center">
-          <a
-            class="text-xl font-medium decoration-primary-500 hover:underline hover:underline-offset-2"
-            href="/tags/vlan/"
-            >vlan</a
-          >
-          
-            <span class="px-2 text-base text-primary-500">&middot;</span>
-            <span class="text-base text-neutral-400">
-              1
-            </span>
-          
-        </h2>
-      </article>
-    
-  </section>
 
+        
+          <div
+            class="pointer-events-none absolute top-[100vh] bottom-0 w-12 ltr:right-0 rtl:left-0"
+          >
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
         
       </main><footer class="py-10 print:hidden">
   
