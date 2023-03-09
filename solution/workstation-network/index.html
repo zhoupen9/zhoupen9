@@ -348,6 +348,8 @@
 </li>
 <li><a href="#headline-11">br-vpc</a>
 </li>
+<li><a href="#headline-12">Update</a>
+</li>
 </ul>
 </nav>
   </div>
@@ -502,6 +504,22 @@ br-vpc
 </h2>
 <div id="outline-text-headline-11" class="outline-text-2">
 <p>A linux bridge named &#34;br-vpc&#34; is set up with VLAN to support lxc containers and virtual machines.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+Update
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>Remove &#34;br-route&#34; bridge and add new VLAN &#34;8&#34;.
+The &#34;br-route&#34; bridge isolates openwrt router and VPC subnets. The isolation prevent host firewalld
+block invalid conntrack state packget caused by asymentric packet route.</p>
+<p>
+The isolation can be archived by isolate subnets in different VLAN as well.
+I removed the &#34;br-route&#34; bridge and add a new VLAN &#34;8&#34;, and then add this VLAN to pfSense to let
+pfSense manage the subnet of this VLAN.</p>
+<p>
+Configure pfSense vm VLAN and openwrt vm vlan, it works exactly the same as using different bridges.</p>
 </div>
 </div>
 
